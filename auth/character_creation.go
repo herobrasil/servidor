@@ -1,10 +1,10 @@
 package auth
 
 import (
-	"github.com/syntaxgame/dragon-legend/database"
-	"github.com/syntaxgame/dragon-legend/logging"
-	"github.com/syntaxgame/dragon-legend/messaging"
-	"github.com/syntaxgame/dragon-legend/utils"
+	"github.com/herobrasil/servidor/database"
+	"github.com/herobrasil/servidor/logging"
+	"github.com/herobrasil/servidor/messaging"
+	"github.com/herobrasil/servidor/utils"
 )
 
 type CancelCharacterCreationHandler struct {

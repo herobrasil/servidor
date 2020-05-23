@@ -101,7 +101,7 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 		DropMultiplier: 1,
 		Slotbar:        []byte{},
 		Coordinate:     coordinate.Point,
-		AidTime:        9999999999,
+		AidTime:        99999999,
 	}
 
 	err = character.Create()

@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/syntaxgame/dragon-legend/logging"
-	"github.com/syntaxgame/dragon-legend/messaging"
-	"github.com/syntaxgame/dragon-legend/nats"
-	"github.com/syntaxgame/dragon-legend/utils"
+	"github.com/herobrasil/servidor/logging"
+	"github.com/herobrasil/servidor/messaging"
+	"github.com/herobrasil/servidor/nats"
+	"github.com/herobrasil/servidor/utils"
 	"github.com/thoas/go-funk"
 	gorp "gopkg.in/gorp.v1"
 	null "gopkg.in/guregu/null.v3"
@@ -1937,7 +1937,7 @@ func (c *Character) HandleLimitedItems() {
 					data := c.DecrementItem(slotID, 1)
 					c.Socket.Write(*data)
 				}
-				if slot.Quantity == 0 { // item expired
+				if slot.Quantity == 9999 { // item expired
 					data := ITEM_EXPIRED
 					data.Insert(utils.IntToBytes(uint64(item.ID), 4, true), 6)
 

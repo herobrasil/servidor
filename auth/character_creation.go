@@ -111,6 +111,10 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 
 	character.AddItem(&database.InventorySlot{ItemID: 17200576, Quantity: 1}, -1, false)
 	character.AddItem(&database.InventorySlot{ItemID: 17500335, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 100031052, Quantity: 99}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 100031053, Quantity: 99}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 100031050, Quantity: 99}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 100031051, Quantity: 99}, -1, false)
 	character.Update()
 
 	stat := &database.Stat{}

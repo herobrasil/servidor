@@ -1,10 +1,10 @@
 package auth
 
 import (
-	"github.com/syntaxgame/dragon-legend/database"
-	"github.com/syntaxgame/dragon-legend/logging"
-	"github.com/syntaxgame/dragon-legend/messaging"
-	"github.com/syntaxgame/dragon-legend/utils"
+	"github.com/herobrasil/servidor/database"
+	"github.com/herobrasil/servidor/logging"
+	"github.com/herobrasil/servidor/messaging"
+	"github.com/herobrasil/servidor/utils"
 )
 
 type CancelCharacterCreationHandler struct {
@@ -101,7 +101,7 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 		DropMultiplier: 1,
 		Slotbar:        []byte{},
 		Coordinate:     coordinate.Point,
-		AidTime:        99999999999999999,
+		AidTime:        999999999,
 	}
 
 	err = character.Create()

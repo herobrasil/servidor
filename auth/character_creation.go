@@ -1,10 +1,10 @@
 package auth
 
 import (
-	"github.com/herobrasil/servidor/database"
-	"github.com/herobrasil/servidor/logging"
-	"github.com/herobrasil/servidor/messaging"
-	"github.com/herobrasil/servidor/utils"
+	"github.com/syntaxgame/dragon-legend/database"
+	"github.com/syntaxgame/dragon-legend/logging"
+	"github.com/syntaxgame/dragon-legend/messaging"
+	"github.com/syntaxgame/dragon-legend/utils"
 )
 
 type CancelCharacterCreationHandler struct {
@@ -39,7 +39,7 @@ func (cch *CharacterCreationHandler) Handle(s *database.Socket, data []byte) ([]
 	cch.characterType = int(data[index])
 	index += 1
 
-	if cch.characterType == 999999 { // Monk creation
+	if cch.characterType == 52 { // Monk creation
 		return messaging.SystemMessage(messaging.INCORRECT_REGISTRATION), nil
 	}
 
@@ -86,7 +86,7 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 		Epoch:          0,
 		Faction:        cch.faction,
 		Height:         cch.height,
-		Level:          5,
+		Level:          1,
 		Class:          0,
 		IsOnline:       false,
 		IsActive:       false,
@@ -95,13 +95,13 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 		Exp:            0,
 		HTVisibility:   0,
 		WeaponSlot:     3,
-		RunningSpeed:   8.6,
+		RunningSpeed:   5.6,
 		GuildID:        -1,
 		ExpMultiplier:  1,
 		DropMultiplier: 1,
 		Slotbar:        []byte{},
 		Coordinate:     coordinate.Point,
-		AidTime:        999999999,
+		AidTime:        9999999999,
 	}
 
 	err = character.Create()
@@ -110,8 +110,8 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 	}
 
 	character.AddItem(&database.InventorySlot{ItemID: 17200576, Quantity: 1}, -1, false)
-	character.AddItem(&database.InventorySlot{ItemID: 17500335, Quantity: 1}, -1, false)
-	character.AddItem(&database.InventorySlot{ItemID: 17501409, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 15710627, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 15710459, Quantity: 1}, -1, false)
 	character.Update()
 
 	stat := &database.Stat{}

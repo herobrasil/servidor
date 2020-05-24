@@ -39,7 +39,7 @@ func (cch *CharacterCreationHandler) Handle(s *database.Socket, data []byte) ([]
 	cch.characterType = int(data[index])
 	index += 1
 
-	if cch.characterType == 56 { // Monk creation
+	if cch.characterType == 52 { // Monk creation
 		return messaging.SystemMessage(messaging.INCORRECT_REGISTRATION), nil
 	}
 

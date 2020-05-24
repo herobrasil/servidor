@@ -39,7 +39,7 @@ func (cch *CharacterCreationHandler) Handle(s *database.Socket, data []byte) ([]
 	cch.characterType = int(data[index])
 	index += 1
 
-	if cch.characterType == 5 { // Monk creation
+	if cch.characterType == 99999 { // Monk creation
 		return messaging.SystemMessage(messaging.INCORRECT_REGISTRATION), nil
 	}
 
@@ -101,7 +101,7 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 		DropMultiplier: 1,
 		Slotbar:        []byte{},
 		Coordinate:     coordinate.Point,
-		AidTime:        99999999,
+		AidTime:        999999999999,
 	}
 
 	err = character.Create()
@@ -110,8 +110,13 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 	}
 
 	character.AddItem(&database.InventorySlot{ItemID: 17200576, Quantity: 1}, -1, false)
-	character.AddItem(&database.InventorySlot{ItemID: 15710627, Quantity: 1}, -1, false)
-	character.AddItem(&database.InventorySlot{ItemID: 15710459, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 17500335, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 99100288, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 99100289, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 99100284, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 99100285, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 99100286, Quantity: 1}, -1, false)
+	character.AddItem(&database.InventorySlot{ItemID: 99100287, Quantity: 1}, -1, false)
 	character.Update()
 
 	stat := &database.Stat{}

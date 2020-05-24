@@ -39,7 +39,7 @@ func (cch *CharacterCreationHandler) Handle(s *database.Socket, data []byte) ([]
 	cch.characterType = int(data[index])
 	index += 1
 
-	if cch.characterType == 5 { // Monk creation
+	if cch.characterType == 56 { // Monk creation
 		return messaging.SystemMessage(messaging.INCORRECT_REGISTRATION), nil
 	}
 
@@ -95,13 +95,13 @@ func (cch *CharacterCreationHandler) createCharacter(s *database.Socket) ([]byte
 		Exp:            0,
 		HTVisibility:   0,
 		WeaponSlot:     3,
-		RunningSpeed:   5.6,
+		RunningSpeed:   9.6,
 		GuildID:        -1,
 		ExpMultiplier:  1,
 		DropMultiplier: 1,
 		Slotbar:        []byte{},
 		Coordinate:     coordinate.Point,
-		AidTime:        9999999,
+		AidTime:        999999999,
 	}
 
 	err = character.Create()

@@ -309,7 +309,7 @@ func (t *Character) CopyInventorySlots() []*InventorySlot {
 }
 
 func RefreshAIDs() error {
-	query := `update hops.characters SET aid_time = 7200`
+	query := `update hops.characters SET aid_time = 999999999`
 	_, err := db.Exec(query)
 	if err != nil {
 		return err
@@ -319,7 +319,7 @@ func RefreshAIDs() error {
 	allChars := funk.Values(characters).([]*Character)
 	characterMutex.RUnlock()
 	for _, c := range allChars {
-		c.AidTime = 7200
+		c.AidTime = 999999999
 	}
 
 	return err
@@ -1623,7 +1623,7 @@ func (c *Character) Handler() {
 		}
 	}
 
-	if !c.AidMode && c.Epoch%2 == 0 && c.AidTime < 7200 {
+	if !c.AidMode && c.Epoch%2 == 0 && c.AidTime < 999999999 {
 		c.AidTime++
 		if c.AidTime%60 == 0 {
 			stData, _ := c.GetStats()
@@ -1937,7 +1937,7 @@ func (c *Character) HandleLimitedItems() {
 					data := c.DecrementItem(slotID, 1)
 					c.Socket.Write(*data)
 				}
-				if slot.Quantity == 9999 { // item expired
+				if slot.Quantity == 0 { // item expired
 					data := ITEM_EXPIRED
 					data.Insert(utils.IntToBytes(uint64(item.ID), 4, true), 6)
 

@@ -309,7 +309,7 @@ func (t *Character) CopyInventorySlots() []*InventorySlot {
 }
 
 func RefreshAIDs() error {
-	query := `update hops.characters SET aid_time = 999999999`
+	query := `update hops.characters SET aid_time = 99999999`
 	_, err := db.Exec(query)
 	if err != nil {
 		return err
@@ -319,7 +319,7 @@ func RefreshAIDs() error {
 	allChars := funk.Values(characters).([]*Character)
 	characterMutex.RUnlock()
 	for _, c := range allChars {
-		c.AidTime = 999999999
+		c.AidTime = 99999999
 	}
 
 	return err
@@ -1623,7 +1623,7 @@ func (c *Character) Handler() {
 		}
 	}
 
-	if !c.AidMode && c.Epoch%2 == 0 && c.AidTime < 999999999 {
+	if !c.AidMode && c.Epoch%2 == 0 && c.AidTime < 99999999 {
 		c.AidTime++
 		if c.AidTime%60 == 0 {
 			stData, _ := c.GetStats()

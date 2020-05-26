@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/herobrasil/servidor/logging"
-	"github.com/herobrasil/servidor/messaging"
-	"github.com/herobrasil/servidor/nats"
-	"github.com/herobrasil/servidor/utils"
+	"github.com/syntaxgame/dragon-legend/logging"
+	"github.com/syntaxgame/dragon-legend/messaging"
+	"github.com/syntaxgame/dragon-legend/nats"
+	"github.com/syntaxgame/dragon-legend/utils"
 	"github.com/thoas/go-funk"
 	gorp "gopkg.in/gorp.v1"
 	null "gopkg.in/guregu/null.v3"
@@ -35,7 +35,10 @@ const (
 	DIVINE_AXE          = 0x42
 	DIVINE_FEMALE_ROD   = 0x43
 	DIVINE_DUAL_BLADE   = 0x45
-)
+	
+    }
+
+    return ""
 
 var (
 	characters     = make(map[int]*Character)
@@ -309,7 +312,7 @@ func (t *Character) CopyInventorySlots() []*InventorySlot {
 }
 
 func RefreshAIDs() error {
-	query := `update hops.characters SET aid_time = 99999999`
+	query := `update hops.characters SET aid_time = 7200`
 	_, err := db.Exec(query)
 	if err != nil {
 		return err
@@ -319,7 +322,7 @@ func RefreshAIDs() error {
 	allChars := funk.Values(characters).([]*Character)
 	characterMutex.RUnlock()
 	for _, c := range allChars {
-		c.AidTime = 99999999
+		c.AidTime = 7200
 	}
 
 	return err
@@ -672,6 +675,10 @@ func (c *Character) SpawnCharacter() ([]byte, error) {
 
 	index := len(c.Name) + 18 + 4
 	resp[index] = byte(c.Type) // character type
+	101=201
+Add.Type +10
+201=300
+Add.type +10
 	index += 1
 
 	index += 8
@@ -1623,7 +1630,7 @@ func (c *Character) Handler() {
 		}
 	}
 
-	if !c.AidMode && c.Epoch%2 == 0 && c.AidTime < 99999999 {
+	if !c.AidMode && c.Epoch%2 == 0 && c.AidTime < 7200 {
 		c.AidTime++
 		if c.AidTime%60 == 0 {
 			stData, _ := c.GetStats()
@@ -2183,7 +2190,7 @@ func (c *Character) AddExp(amount int64) ([]byte, bool) {
 		return nil, false
 	}
 
-	levelUp := false
+	levelUp := true
 	level := int16(c.Level)
 	targetExp := EXPs[level].Exp
 	skPts, sp := 0, 0
@@ -5059,12 +5066,12 @@ func (c *Character) BuffEffects(stat *Stat) error {
 func (c *Character) GetLevelText() string {
 	if c.Level < 10 {
 		return fmt.Sprintf("%dKyu", c.Level)
-	} else if c.Level <= 100 {
+	} else if c.Level <= 99 {
 		return fmt.Sprintf("%dDan %dKyu", c.Level/10, c.Level%10)
 	} else if c.Level < 110 {
-		return fmt.Sprintf("Divine %dKyu", c.Level%100)
+		return fmt.Sprintf("Divine %dKyu", c.Level%101)
 	} else if c.Level <= 200 {
-		return fmt.Sprintf("Divine %dDan %dKyu", (c.Level-100)/10, c.Level%100)
+		return fmt.Sprintf("Divine %dDan %dKyu", (c.Level-100)/10, c.Level%101)
 	}
 
 	return ""
